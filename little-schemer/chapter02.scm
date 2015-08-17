@@ -1,6 +1,5 @@
 (load "chapter01.scm")
 
-
 (define lat?
   (lambda (l)
     (cond ((null? l) #t)
@@ -11,7 +10,7 @@
 (define member?
   (lambda (a lat)
     (cond ((null? lat) #f)
-	  (else (or (eq? a (car lat))
-		    (member? a (cdr lat)))))))
+	  ((eq? a (car lat)) #t)
+	  (else (member? a (cdr lat))))))
 
 
