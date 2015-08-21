@@ -12,7 +12,6 @@
     (or (null? l)
 	(and (atom? (car l))
 	     (lat?-2 (cdr l))))))
-		    
 
 
 (define member?
