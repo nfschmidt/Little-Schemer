@@ -75,5 +75,27 @@
 
 		     (new-test "third of (a b c) is c"
 			       (eq? 'c (third '(a b c))))
+
+		     (new-test "fun? of ((4 3) (4 2) (7 6) (6 2) (3 4)) is #f"
+			       (not (fun? '((4 3) (4 2) (7 6) (6 2) (3 4)))))
+
+		     (new-test "fun? of ((8 3) (4 2) (7 6) (6 2) (3 4)) is #t"
+			       (fun? '((8 3) (4 2) (7 6) (6 2) (3 4))))
+
+		     (new-test "revrel of ((8 a) (pumpkin pie) (got sick)) is ((a 8) (pie pumpkin) (sick got))"
+			       (equal? '((a 8) (pie pumpkin) (sick got)) (revrel '((8 a) (pumpkin pie) (got sick)))))
+
+		     (new-test "revpair of (a b) is (b a)"
+			       (equal? '(b a) (revpair '(a b))))
+
+		     (new-test "seconds of ((a b) (c d) (e f)) is (b d f)"
+			       (equal? '(b d f) (seconds '((a b) (c d) (e f)))))
+
+		     
+		     (new-test "fullfun? of ((8 3) (4 2) (7 6) (6 2) (3 4)) is #f"
+			       (not (fullfun? '((8 3) (4 2) (7 6) (6 2) (3 4))))) 
+
+		     (new-test "fullfun? of ((8 3) (4 8) (7 6) (6 2) (3 4)) is #f"
+			       (fullfun? '((8 3) (4 8) (7 6) (6 2) (3 4))))
 		     
 		     )

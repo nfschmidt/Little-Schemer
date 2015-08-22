@@ -79,3 +79,42 @@
 (define third
   (lambda (l)
     (car (cdr (cdr l)))))
+
+
+(define fun?
+  (lambda (rel)
+    (set? (firsts rel))))
+
+
+(define revpair
+  (lambda (p)
+    (build (second p) (first p))))
+
+
+(define revrel
+  (lambda (rel)
+    (cond ((null? rel) '())
+	  (else (cons (revpair (car rel))
+		      (revrel (cdr rel)))))))
+
+
+(define seconds
+  (lambda (l)
+    (cond ((null? l) '())
+	  (else (cons (second (car l))
+		      (seconds (cdr l)))))))
+
+
+(define fullfun?
+  (lambda (fun)
+    (set? (seconds fun))))
+
+
+(define one-to-one?
+  (lambda (fun)
+    (fun? (revrel fun))))
+
+
+(define fullfun? one-to-one?)
+
+
