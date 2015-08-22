@@ -91,5 +91,12 @@
 (define rember
   (lambda (s l)
     (cond ((null? l) '())
-	   ((equal? (car l) s) (cdr l))
-	   (else (cons (car l) (rember s (cdr l)))))))
+	  ((equal? (car l) s) (cdr l))
+	  (else (cons (car l) (rember s (cdr l)))))))
+
+
+(define member?
+  (lambda (a lat)
+    (cond ((null? lat) #f)
+	  ((equal? (car lat) a) #t)
+	  (else (member? a (cdr lat))))))
