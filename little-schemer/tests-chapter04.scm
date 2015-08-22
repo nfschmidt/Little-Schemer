@@ -73,6 +73,38 @@
 		     (new-test "rempick of 3 (hotdogs with hot mustard) is (hotdogs with mustard)"
 			       (equal? '(hotdogs with mustard) (rempick 3 '(hotdogs with hot mustard))))
 
-		     
+		     (new-test "no-nums of (5 pears 6 prunes 9 dates) is (pears prunes dates)"
+			       (equal? '(pears prunes dates) (no-nums '(5 pears 6 prunes 9 dates))))
 
+		     (new-test "all-nums of (5 pears 6 prunes 9 dates) is (5 6 9)"
+			       (equal? '(5 6 9) (all-nums '(5 pears 6 prunes 9 dates))))
+
+		     (new-test "eqan? of 1 1 is #t"
+			       (eqan? 1 1))
+
+		     (new-test "eqan? of 1 2 is #f"
+			       (not (eqan? 1 2)))
+
+		     (new-test "eqan? of a a is #t"
+			       (eqan? 'a 'a))
+
+		     (new-test "eqan? of a b is #f"
+			       (not (eqan? 'a 'b)))
+
+		     (new-test "eqan? of a 1 is #f"
+			       (not (eqan? 'a 1)))
+
+		     (new-test "eqan? of 1 a is #f"
+			       (not (eqan? 1 'a)))
+
+		     (new-test "occur of a (1 a b c 2 a 3 a) is 3"
+			       (= 3 (occur 'a '(1 a b c 2 a 3 a))))
+		     (new-test "occur of a (1 b b c 2 b 3 b) is 0"
+			       (= 0 (occur 'a '(1 b b c 2 b 3 b))))
+
+		     (new-test "one? of 1 is #t"
+			       (one? 1))
+
+		     (new-test "one? of 2 is #f"
+			       (not (one? 2)))
 		     )
