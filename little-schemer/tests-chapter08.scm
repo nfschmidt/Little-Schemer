@@ -46,4 +46,34 @@
 		     (new-test "multiremberT of eq?-tuna (shrimp salad tuna salad and tuna) is (shrimp salad salad and)"
 			       (equal? '(shrimp salad salad and) (multiremberT eq?-tuna '(shrimp salad tuna salad and tuna))))
 
+		     (new-test "a-friend of (a b) () is #t"
+			       (a-friend '(a b) '()))
+
+		     (new-test "a-friend of (a b) (c d) is #f"
+			       (not (a-friend '(a b) '(c d))))
+
+		     (new-test "multirember&co of tuna (strawberries and swordfish) a-friend is #t"
+			       (multirember&co 'tuna '(strawberries and swordfish) a-friend))
+
+		     (new-test "multiinsertLR of x a b (a b c) is (x a b x c)"
+			       (equal? '(x a b x c) (multiinsertLR 'x 'a 'b '(a b c))))
+
+		     (new-test "multiinsertLR&co of x a b (a b c b) (lambda (n l r) (cons n (cons l r))) is ((x a b x c b x) 1 2)"
+			       (equal? '((x a b x c b x) 1 2) (multiinsertLR&co 'x 'a 'b '(a b c b) (lambda (n l r) (cons n (cons l (cons r '())))))))
+
+		     (new-test "even? of 2 is #t"
+			       (even? 2))
+
+		     (new-test "even? of 3 is #f"
+			       (not (even? 3)))
+
+		     (new-test "evens-only* of (1 2 (3 (4 5 6 (7) 8)) 9 10) is (2 ((4 6 () 8)) 10)"
+			       (equal? '(2 ((4 6 () 8)) 10) (evens-only* '(1 2 (3 (4 5 6 (7) 8)) 9 10))))
+
+		     (new-test "evens-only* of ((9 1 2 8) 3 10 ((9 9) 7 6) 2) is ((2 8) 10 (() 6) 2)"
+			       (equal? '((2 8) 10 (() 6) 2) (evens-only* '((9 1 2 8) 3 10 ((9 9) 7 6) 2))))
+
+		     (new-test "evens-only*&co of ((9 1 2 8) 3 10 ((9 9) 7 6) 2) the-last-friend is (38 1920 ((2 8) 10 (() 6) 2))"
+			       (equal? '(38 1920 (2 8) 10 (() 6) 2) (evens-only*&co '((9 1 2 8) 3 10 ((9 9) 7 6) 2) the-last-friend)))
+
 		     )

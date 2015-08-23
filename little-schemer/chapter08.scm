@@ -126,3 +126,101 @@
 
 
 (define eq?-tuna (eq?-c 'tuna))
+
+
+(define multirember&co
+  (lambda (a lat col)
+    (cond ((null? lat) (col '() '()))
+	  ((eq? a (car lat))
+	   (multirember&co a (cdr lat)
+			   (lambda (newlat seen)
+			     (col newlat (cons (car lat) seen)))))
+	  (else (multirember&co a (cdr lat)
+				(lambda (newlat seen)
+				  (col (cons (car lat) newlat) seen)))))))
+
+
+(define a-friend
+  (lambda (x y)
+    (null? y)))
+
+
+(define multiinsertLR
+  (lambda (new oldL oldR lat)
+    (cond ((null? lat) '())
+	  ((eq? (car lat) oldL) (cons new (cons oldL (multiinsertLR new oldL oldR (cdr lat)))))
+	  ((eq? (car lat) oldR)	(cons oldR (cons new (multiinsertLR new oldL oldR (cdr lat)))))
+	  (else (cons (car lat) (multiinsertLR new oldL oldR (cdr lat)))))))
+
+
+(define multiinsertLR&co
+  (lambda (new oldL oldR lat col)
+    (cond ((null? lat) (col '() 0 0))
+	  ((eq? (car lat) oldL)
+	   (multiinsertLR&co new oldL oldR (cdr lat)
+			     (lambda (newlat left right)
+			       (col (cons new (cons oldL newlat))
+				    (add1 left)
+				    right))))
+
+	  ((eq? (car lat) oldR)
+	   (multiinsertLR&co new oldL oldR (cdr lat)
+			     (lambda (newlat left right)
+			       (col (cons oldR (cons new newlat))
+				    left
+				    (add1 right)))))
+
+	  (else (multiinsertLR&co new oldL oldR (cdr lat)
+				  (lambda (newlat left right)
+				    (col (cons (car lat) newlat)
+					 left
+					 right)))))))
+
+
+(define even?
+  (lambda (n)
+    (= (X 2 (div n 2)) n)))
+
+
+(define evens-only*
+  (lambda (l)
+    (cond ((null? l) '())
+	  ((atom? (car l)) (cond ((even? (car l)) (cons (car l)
+						       (evens-only* (cdr l))))
+				 (else (evens-only* (cdr l)))))
+	  (else (cons (evens-only* (car l))
+		      (evens-only* (cdr l)))))))
+
+
+(define the-last-friend
+  (lambda (newl product sum)
+    (cons sum (cons product newl))))
+
+
+
+(define evens-only*&co
+  (lambda (l col)
+    (cond ((null? l) (col '() 1 0))
+	  ((atom? (car l))
+	   (cond ((even? (car l)) (evens-only*&co (cdr l)
+						  (lambda (newl p s)
+						    (col (cons (car l) newl)
+							 (X p (car l))
+							 s))))
+		 (else (evens-only*&co (cdr l)
+				       (lambda (newl p s)
+					 (col newl
+					      p
+					      (o+ s (car l))))))))
+	  (else (evens-only*&co (car l)
+				(lambda (subl subp subs)
+				  (evens-only*&co (cdr l)
+						  (lambda (newl p s)
+						    (col (cons subl newl)
+							 (X subp p)
+							 (o+ subs s))))))))))
+	  
+
+	  
+							 
+								  
