@@ -2,46 +2,49 @@
 (load "chapter01.scm")
 
 
-(print-tests-results
+(define-tests-suite chapter01
 
- (test atom? (with-argument 'atom) is #t)
+  (test atom? (of 'atom) is #t)
 
- (test atom? (with-argument 'turkey) is #t)
- 
- (test atom? (with-argument 1492) is #t)
+  (test atom? (of 'turkey) is #t)
+  
+  (test atom? (of 1492) is #t)
 
- (test atom? (with-argument 'u) is #t)
+  (test atom? (of 'u) is #t)
 
- (test atom? (with-argument '*abc$) is #t)
+  (test atom? (of '*abc$) is #t)
 
- (test list? (with-argument '(atom)) is #t)
+  (test list? (of '(atom)) is #t)
 
- (test list? (with-argument '(atom turkey or)) is #t)
- 
- (test list? (with-argument '((atom turkey) or)) is #t)
+  (test list? (of '(atom turkey or)) is #t)
+  
+  (test list? (of '((atom turkey) or)) is #t)
 
- (test list? (with-argument '(how are you doing so far)) is #t)
+  (test list? (of '(how are you doing so far)) is #t)
 
- (test list? (with-argument '(((how) are) ((you) (doing so)) far)) is #t)
+  (test list? (of '(((how) are) ((you) (doing so)) far)) is #t)
 
- (test list? (with-argument '()) is  #t)
+  (test list? (of '()) is  #t)
 
- (test atom? (with-argument '()) is  #f)
+  (test atom? (of '()) is  #f)
 
- (test list? (with-argument '(() () () ())) is #t)
+  (test list? (of '(() () () ())) is #t)
 
- (test car (with-argument '(a b c)) is 'a)
+  (test car (of '(a b c)) is 'a)
 
- (test car (with-argument '((a b c) x y z)) is '(a b c))
+  (test car (of '((a b c) x y z)) is '(a b c))
 
- (test car (with-argument '(((hotdogs)) (and) (pickle) relish)) is '((hotdogs)))
+  (test car (of '(((hotdogs)) (and) (pickle) relish)) is '((hotdogs)))
 
- (test cdr (with-argument '(a b c)) is '(b c))
+  (test cdr (of '(a b c)) is '(b c))
 
- (test cdr (with-argument '((a b c) x y z)) is '(x y z))
+  (test cdr (of '((a b c) x y z)) is '(x y z))
 
- (test cdr (with-argument '(hamburger)) is '())
+  (test cdr (of '(hamburger)) is '())
 
- (test cdr (with-argument '((x) t r)) is '(t r))
- 
- )
+  (test cdr (of '((x) t r)) is '(t r))
+  
+  )
+
+
+(print-tests-suite-results chapter01)

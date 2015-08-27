@@ -15,6 +15,9 @@
 (define test-passed get-result)
 
 
+(define new-tests-suite list)
+
+
 (define test->string
   (lambda (test)
     (string-append (get-description test)
@@ -35,6 +38,12 @@
     (for-each print-test-result tests)))
 
 
+(define print-tests-suite-results
+  (lambda (tests-suite)
+    (display (string-append "\n\n*********** TEST SUITE: " (car tests-suite) "\n"))
+    (for-each print-test-result (cdr tests-suite))))
+     
+
 (define ->string
   (lambda (x)
     (call-with-output-string (lambda (out)
@@ -50,15 +59,19 @@
 
 
 (define-syntax test
-  (syntax-rules (with-argument with-arguments without-arguments is)
-    ((_ function (with-arguments arg ...) is result)
-     (new-test (l->string '(function with arguments arg ... is result))
-	       (equal? result (function arg ...))))
+  (syntax-rules (of of-nothing is)
+    ((_ function (of arg* ...) is result)
+     (new-test (l->string '(function of arg* ... is result))
+	       (equal? result (function arg* ...))))
 
-    ((_ function (with-argument arg) is result)
-     (new-test (l->string '(function with argument arg is result))
-	       (equal? result (function arg))))
-
-    ((_ function (without-arguments) is result)
-     (new-test (l->string '(function without arguments is result))
+    ((_ function of-nothing is result)
+     (new-test (l->string '(function of nothing is result))
 	       (equal? result (function))))))
+
+
+(define-syntax define-tests-suite
+  (syntax-rules ()
+    ((_ name tests* ...)
+     (define name
+       (new-tests-suite (symbol->string 'name) tests* ...)))))
+
